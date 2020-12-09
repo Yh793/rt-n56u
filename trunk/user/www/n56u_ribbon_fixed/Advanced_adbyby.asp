@@ -463,11 +463,11 @@ function changeBgColorrl(obj, num){
                         </div>
 								<div class="row-fluid">
 									<div id="tabMenu" class="submenuBlock"></div>
-									<div class="alert alert-info" style="margin: 10px;">广告屏蔽大师 Plus + 可以全面过滤各种横幅、弹窗、视频广告，同时阻止跟踪、隐私窃取及各种恶意网站<br />
-									<div>Plus + 版本可以和 Hosts 结合方式运行，过滤广告不损失带宽</div>
+									<div class="alert alert-info" style="margin: 10px;">Adbyby Plus+ 可以全面过滤各种横幅、弹窗、视频广告，同时阻止跟踪、隐私窃取及各种恶意网站。<br />
+									<div>Adbyby Plus+ 可以和 Hosts 结合方式运行，过滤广告不损失带宽。</div>
+									<div>Hosts规则：【<% nvram_get_x("", "adbyby_hostsad"); %>】条</div>
 									<div>anti-AD项目地址:<a href="https://github.com/privacy-protection-tools/anti-AD">https://github.com/privacy-protection-tools/anti-AD</a></div>
-									<div>静态规则：【<% nvram_get_x("", "adbyby_ltime"); %>】 | 视频规则：【<% nvram_get_x("", "adbyby_vtime"); %>】</div>
-									<div>anti-AD规则：【<% nvram_get_x("", "anti_ad_count"); %>】条 | Hosts AD：【<% nvram_get_x("", "adbyby_hostsad"); %>】条</div>
+									<div>anti-AD规则：【<% nvram_get_x("", "anti_ad_count"); %>】条</div>
 									<div>第三方规则：【<% nvram_get_x("", "adbyby_user"); %>】条</div>
 									<div> </div>
 									</div>
@@ -582,9 +582,9 @@ function changeBgColorrl(obj, num){
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3">
+											<td colspan="3" style="border-top: 0 none;">
 												<i class="icon-hand-right"></i> <a href="javascript:spoiler_toggle('script15')"><span>hosts规则下载列表(一行一个地址):</span></a>
-												<div id="script15">
+												<div id="script15" style="display:none;">
 													<textarea rows="8" wrap="off" spellcheck="false" maxlength="314571" class="span12" name="scripts.adbyby_host.sh" style="font-family:'Courier New'; font-size:12px;"><% nvram_dump("scripts.adbyby_host.sh",""); %></textarea>
 												</div>
 											</td>
@@ -714,9 +714,9 @@ function changeBgColorrl(obj, num){
                                     </table>
 									<table class="table">
 										<tr>
-											<td colspan="3" >
+											<td colspan="3" style="border-top: 0 none;">
 												<i class="icon-hand-right"></i> <a href="javascript:spoiler_toggle('script9')"><span>Plus+ 模式过滤的域名:</span></a>
-												<div id="script9">
+												<div id="script9" style="display:none;">
 													<textarea rows="8" wrap="off" spellcheck="false" maxlength="314571" class="span12" name="scripts.adbyby_adhost.sh" style="font-family:'Courier New'; font-size:12px;"><% nvram_dump("scripts.adbyby_adhost.sh",""); %></textarea>
 												</div>
 											</td>
