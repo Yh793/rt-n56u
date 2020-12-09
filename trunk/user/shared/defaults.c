@@ -451,7 +451,7 @@ struct nvram_pair router_defaults[] = {
 	{ "anti_ad_count", "0" },
 	/* Pdnsd */
 	{ "dns_enable", "0" },
-	{ "dns_server", "223.5.5.5,114.114.114.114" },
+	{ "dns_server", "223.6.6.6,114.114.114.114" },
 	{ "dns_server_port", "5333" },
 	{ "dns_server_bind", "0.0.0.0" },
 
@@ -641,8 +641,8 @@ struct nvram_pair router_defaults[] = {
 	{ "pdnsd_enable", "0" },
 	{ "s_dports", "0" },
 	{ "ssp_local_port", "1080" },
-	{ "china_dns", "223.5.5.5#53" },
-	{ "tunnel_forward", "8.8.8.8#53" },
+	{ "china_dns", "223.6.6.6#53" },
+	{ "tunnel_forward", "8.8.4.4#53" },
 	{ "ssp_dns_ip", "2" },
 	{ "socks5_enable", "0" },
 	{ "socks5_wenable", "0" },
@@ -656,7 +656,7 @@ struct nvram_pair router_defaults[] = {
 	{ "ss_turn_ss", "5" },
 	{ "lan_con", "0" },
 	{ "ss_chnroute_url", "https://ispip.clang.cn/all_cn.txt"},
-	{ "ss_adblock_url", "https://gitee.com/privacy-protection-tools/anti-ad/raw/master/anti-ad-for-dnsmasq.conf"},
+	{ "ss_adblock_url", "https://anti-ad.net/anti-ad-for-dnsmasq.conf"},
 	{ "ss_schedule_enable", "0" },
 	{ "ss_schedule", "00000000000" },
 
@@ -752,7 +752,7 @@ struct nvram_pair router_defaults[] = {
 	
 	/*SmartDns*/
 	{ "sdns_enable", "0" },
-	{ "snds_name", "smartdns" },
+	{ "snds_name", "SmartDNS" },
 	{ "sdns_port", "6053" },
 	{ "sdns_tcp_server", "0" },
 	{ "sdns_ipv6_server", "0" },
@@ -897,17 +897,17 @@ struct nvram_pair router_defaults[] = {
 	{ "di_lost_action", "0" },
 	{ "di_recon_pause", "0" },
 	{ "di_addr0", "114.114.114.114" },
-	{ "di_addr1", "208.67.222.222" },
-	{ "di_addr2", "183.232.231.172" },
-	{ "di_addr3", "8.8.8.8" },
-	{ "di_addr4", "8.8.4.4" },
-	{ "di_addr5", "208.67.220.220" },
+	{ "di_addr1", "8.8.4.4" },
+	{ "di_addr2", "" },
+	{ "di_addr3", "" },
+	{ "di_addr4", "" },
+	{ "di_addr5", "" },
 	{ "di_port0", "53" },
 	{ "di_port1", "53" },
-	{ "di_port2", "80" },
-	{ "di_port3", "53" },
-	{ "di_port4", "53" },
-	{ "di_port5", "53" },
+	{ "di_port2", "" },
+	{ "di_port3", "" },
+	{ "di_port4", "" },
+	{ "di_port5", "" },
 
 	{ "fw_pt_pppoe", "0" },
 
@@ -1081,7 +1081,7 @@ struct nvram_pair router_defaults[] = {
 	{ "xTun_tcp", "0" },
 	{ "xTun_key", "password" },
 
-	{ "xTun_dns", "1.1.1.1" },
+	{ "xTun_dns", "8.8.4.4" },
 	{ "xTun_black_list", "/etc/storage/xTun_black_list" },
 #endif
 
