@@ -54,7 +54,7 @@ adbyby_close()
 	if [ $mem_mode -eq 1 ]; then
 	echo "stop mem mode"
 	fi
-	kill -9 $(ps | grep admem.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1 
+	kill -9 $(ps | grep admem.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
 	/sbin/restart_dhcpd
 	logger -t "adbyby" "Adbyby已关闭。"
 
@@ -69,15 +69,15 @@ add_rules()
 	touch /tmp/md5.json && curl -k -s -o /tmp/md5.json --connect-timeout 5 --retry 3 https://adbyby.coding.net/p/xwhyc-rules/d/xwhyc-rules/git/raw/master/md5.json
 
 	lazy_local=$(grep 'lazy' /tmp/local-md5.json | awk -F' ' '{print $1}')
-	video_local=$(grep 'video' /tmp/local-md5.json | awk -F' ' '{print $1}')  
+	video_local=$(grep 'video' /tmp/local-md5.json | awk -F' ' '{print $1}')
 	lazy_online=$(sed  's/":"/\n/g' /tmp/md5.json  |  sed  's/","/\n/g' | sed -n '2p')
 	video_online=$(sed  's/":"/\n/g' /tmp/md5.json  |  sed  's/","/\n/g' | sed -n '4p')
 
 	if [ "$lazy_online"x != "$lazy_local"x -o "$video_online"x != "$video_local"x ]; then
 	echo "MD5 not match! Need update!"
 	logger -t "adbyby" "发现更新的规则,下载规则！"
-	touch /tmp/lazy.txt && curl -k -s -o /tmp/lazy.txt --connect-timeout 5 --retry 3 https://adbyby.coding.net/p/xwhyc-rules/d/xwhyc-rules/git/raw/master/lazy.txt
-	touch /tmp/video.txt && curl -k -s -o /tmp/video.txt --connect-timeout 5 --retry 3 https://adbyby.coding.net/p/xwhyc-rules/d/xwhyc-rules/git/raw/master/video.txt
+	touch /tmp/lazy.txt && curl -k -s -o /tmp/lazy.txt --connect-timeout 5 --retry 3 https://raw.githubusercontent.com/luoluodaduan/AdbybyRules/master/lazy.txt
+	touch /tmp/video.txt && curl -k -s -o /tmp/video.txt --connect-timeout 5 --retry 3 https://raw.githubusercontent.com/luoluodaduan/AdbybyRules/master/video.txt
 	touch /tmp/local-md5.json && md5sum /tmp/lazy.txt /tmp/video.txt > /tmp/local-md5.json
 	lazy_local=$(grep 'lazy' /tmp/local-md5.json | awk -F' ' '{print $1}')
 	video_local=$(grep 'video' /tmp/local-md5.json | awk -F' ' '{print $1}')
@@ -127,7 +127,6 @@ add_rules()
 	grep -v ^! $PROG_PATH/rules.txt >> $DATA_PATH/user.txt
 	nvram set adbyby_user=`cat /tmp/adbyby/data/user.txt | wc -l`
 }
-
 
 add_cron()
 {
@@ -256,7 +255,6 @@ del_dns()
 	rm -f /tmp/adbyby_host.conf
 }
 
-
 add_rule()
 {
 	$ipt_n -N ADBYBY
@@ -374,29 +372,12 @@ EOF
 fi
 }
 
-
 addscripts()
 {
 
 	adbyby_rules="/etc/storage/adbyby_rules.sh"
 	if [ ! -f "$adbyby_rules" ] || [ ! -s "$adbyby_rules" ] ; then
 	cat > "$adbyby_rules" <<-\EEE
-!  ------------------------------ ADByby 自定义过滤语法简表---------------------------------
-!  --------------  规则基于abp规则，并进行了字符替换部分的扩展-----------------------------
-!  ABP规则请参考https://adblockplus.org/zh_CN/filters，下面为大致摘要
-!  "!" 为行注释符，注释行以该符号起始作为一行注释语义，用于规则描述
-!  "*" 为字符通配符，能够匹配0长度或任意长度的字符串，该通配符不能与正则语法混用。
-!  "^" 为分隔符，可以是除了字母、数字或者 _ - . % 之外的任何字符。
-!  "|" 为管线符号，来表示地址的最前端或最末端
-!  "||" 为子域通配符，方便匹配主域名下的所有子域。
-!  "~" 为排除标识符，通配符能过滤大多数广告，但同时存在误杀, 可以通过排除标识符修正误杀链接。
-!  "##" 为元素选择器标识符，后面跟需要隐藏元素的CSS样式例如 #ad_id  .ad_class
-!!  元素隐藏暂不支持全局规则和排除规则
-!! 字符替换扩展
-!  文本替换选择器标识符，后面跟需要替换的文本数据，格式：$s@模式字符串@替换后的文本@
-!  支持通配符*和？
-!  -------------------------------------------------------------------------------------------
-
 EEE
 	chmod 755 "$adbyby_rules"
 	fi
@@ -404,8 +385,6 @@ EEE
 	adbyby_blockip="/etc/storage/adbyby_blockip.sh"
 	if [ ! -f "$adbyby_blockip" ] || [ ! -s "$adbyby_blockip" ] ; then
 	cat > "$adbyby_blockip" <<-\EEE
-2.2.2.2
-
 EEE
 	chmod 755 "$adbyby_blockip"
 	fi
@@ -413,21 +392,6 @@ EEE
 	adbyby_adblack="/etc/storage/adbyby_adblack.sh"
 	if [ ! -f "$adbyby_adblack" ] || [ ! -s "$adbyby_adblack" ] ; then
 	cat > "$adbyby_adblack" <<-\EEE
-gvod.aiseejapp.atianqi.com
-stat.pandora.xiaomi.com
-upgrade.mishop.pandora.xiaomi.com
-logonext.tv.kuyun.com
-config.kuyun.com
-mishop.pandora.xiaomi.com
-dvb.pandora.xiaomi.com
-api.ad.xiaomi.com
-de.pandora.xiaomi.com
-data.mistat.xiaomi.com
-jellyfish.pandora.xiaomi.com
-gallery.pandora.xiaomi.com
-o2o.api.xiaomi.com
-bss.pandora.xiaomi.com
-
 EEE
 	chmod 755 "$adbyby_adblack"
 	fi
@@ -435,10 +399,6 @@ EEE
 	adbyby_adesc="/etc/storage/adbyby_adesc.sh"
 	if [ ! -f "$adbyby_adesc" ] || [ ! -s "$adbyby_adesc" ] ; then
 	cat > "$adbyby_adesc" <<-\EEE
-weixin.qq.com
-qpic.cn
-imtt.qq.com
-
 EEE
 	chmod 755 "$adbyby_adesc"
 	fi
@@ -446,75 +406,6 @@ EEE
 	adbyby_adhost="/etc/storage/adbyby_adhost.sh"
 	if [ ! -f "$adbyby_adhost" ] || [ ! -s "$adbyby_adhost" ] ; then
 	cat > "$adbyby_adhost" <<-\EEE
-cbjs.baidu.com
-list.video.baidu.com
-nsclick.baidu.com
-play.baidu.com
-sclick.baidu.com
-tieba.baidu.com
-baidustatic.com
-bdimg.com
-bdstatic.com
-share.baidu.com
-hm.baidu.com
-v.baidu.com
-cpro.baidu.com
-1000fr.net
-atianqi.com
-56.com
-v-56.com
-acfun.com
-acfun.tv
-baofeng.com
-baofeng.net
-cntv.cn
-hoopchina.com.cn
-funshion.com
-fun.tv
-hitvs.cn
-hljtv.com
-iqiyi.com
-qiyi.com
-agn.aty.sohu.com
-itc.cn
-kankan.com
-ku6.com
-letv.com
-letvcloud.com
-letvimg.com
-pplive.cn
-pps.tv
-ppsimg.com
-pptv.com
-www.qq.com
-l.qq.com
-v.qq.com
-video.sina.com.cn
-tudou.com
-wasu.cn
-analytics-union.xunlei.com
-kankan.xunlei.com
-youku.com
-hunantv.com
-ifeng.com
-renren.com
-mediav.com
-cnbeta.com
-mydrivers.com
-168f.info
-doubleclick.net
-126.net
-sohu.com
-right.com.cn
-50bang.org
-you85.cn
-jiuzhilan.com
-googles.com
-cnbetacdn.com
-ptqy.gitv.tv
-admaster.com.cn
-serving-sys.com
-
 EEE
 	chmod 755 "$adbyby_adhost"
 	fi
