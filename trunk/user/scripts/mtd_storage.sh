@@ -470,25 +470,11 @@ EOF
 ### Web Proxy Automatic Discovery (WPAD)
 dhcp-option=252,"\n"
 
-### Set the limit on DHCP leases, the default is 150
-#dhcp-lease-max=150
+### 指定 DNS 同时查询转发数量
+dns-forward-max=512
 
-### Add local-only domains, queries are answered from hosts or DHCP only
-#local=/router/localdomain/
-
-### Examples:
-
-### Enable built-in TFTP server
-#enable-tftp
-
-### Set the root directory for files available via TFTP.
-#tftp-root=/opt/srv/tftp
-
-### Make the TFTP server more secure
-#tftp-secure
-
-### Set the boot filename for netboot/PXE
-#dhcp-boot=pxelinux.0
+### 重启后清空缓存
+clear-on-reload
 
 ### Log for all queries
 #log-queries
@@ -507,7 +493,7 @@ EOF
 
 	if [ -f /usr/bin/wing ]; then
 		cat >> "$user_dnsmasq_conf" <<EOF
-# Custom domains to gfwlist
+### Custom domains to gfwlist
 #gfwlist=mit.edu
 #gfwlist=openwrt.org,lede-project.org
 #gfwlist=github.com,github.io,githubusercontent.com
